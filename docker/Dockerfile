@@ -2,8 +2,7 @@
 FROM ubuntu:latest
 # WORKDIRを使ってコマンドの実行ディレクトリを変更する
 RUN mkdir sample_folder
-RUN cd sample_folder
-# RUNで指定したコマンドは原則ホームディレクトリ直下で実行される
-# そのため直前にcdコマンドを指定してそのディレクトリ内でtouchを実行しようとしても
-# 下記のsampleファイルはホームディレクトリに作成される
+# WORKDIRで処理を実行したいディレクトリを指定するとそのディレクトリ内でコマンドが実行される
+# mkdirしなくてもWORKDIRコマンドで指定したディレクトリがなければ自動で作ってくれる
+WORKDIR /sample_folder
 RUN touch sample
