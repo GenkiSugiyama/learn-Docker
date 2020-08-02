@@ -1,8 +1,10 @@
 # DockerHubからプルするベースとなるimageをFROMで指定
 FROM ubuntu:latest
-# WORKDIRを使ってコマンドの実行ディレクトリを変更する
-RUN mkdir sample_folder
-# WORKDIRで処理を実行したいディレクトリを指定するとそのディレクトリ内でコマンドが実行される
-# mkdirしなくてもWORKDIRコマンドで指定したディレクトリがなければ自動で作ってくれる
-WORKDIR /sample_folder
-RUN touch sample
+# ホスト内のディレクトリをコンテナ上にマウントする
+# 開発の実行環境としてコンテナを利用する場合は基本的にファイル群はホストのままコンテナにマウントして
+# コンテナ上実行結果を確認する
+# マウント方法：docker run時に　『-v』オプションをつける
+# docker run -v 'マウントしたいローカルのファイルパス'：'コンテナ内のパス'
+RUN mkdir new_dir
+# ↑でフォルダを作成するRUNコマンドを実行しているが、-vコマンドで指定したコンテナ内のフォルダが
+# ない場合でもrun時に生成してくれる
