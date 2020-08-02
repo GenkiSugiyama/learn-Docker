@@ -1,0 +1,4 @@
+# DockerHubからプルするベースとなるimageをFROMで指定
+FROM ubuntu:latest
+# RUN ~ で作成したimageへのコマンドを実行
+RUN touch test
