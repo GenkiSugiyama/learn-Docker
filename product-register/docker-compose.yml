@@ -1,11 +1,27 @@
 version: '3'
 
+volumes:
+  db-data:
+
 services:
-  web:
+  web: # 作成するコンテナ名
     build: .
     ports:
       - '3000:3000'
     volumes:
       - '.:/product-register'
+    environment: 
+      - 'DATABASE_PASSWORD=postgres'
     tty: true
     stdin_open: true
+    depends_on: #指定したサービスの起動後に自サービスをdocker runするように指示
+      - db
+    links: #接続先コンテナの指定
+      - db
+
+  db: # 作成するコンテナ名
+    image: postgres # 使用する既存イメージを指定
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: postgres
